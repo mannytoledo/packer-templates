@@ -15,35 +15,27 @@
             "http_directory": ".",
             "boot_wait": "5s",
             "boot_command": [
-                "<enter><wait10><wait10>",
-                "/usr/bin/curl -O http://{{.HTTPIP}}:{{.HTTPPort}}/install-virtualbox.sh<enter><wait5>",
-                "/usr/bin/curl -O http://{{.HTTPIP}}:{{.HTTPPort}}/poweroff.timer<enter><wait5>",
-                "/usr/bin/bash ./install-virtualbox.sh<enter>"
-            ],
-            "disk_size": 20480,
-            "ssh_username": "root",
-            "ssh_password": "vagrant",
-            "shutdown_command": "systemctl start poweroff.timer"
-        },
-        {
-            "type": "vmware-iso",
-            "iso_url": "{{user `iso_url`}}",
-            "iso_checksum": "{{user `iso_checksum`}}",
-            "iso_checksum_type": "{{user `iso_checksum_type`}}",
-            "http_directory": ".",
-            "boot_wait": "5s",
-            "boot_command": [
-                "<enter><wait10><wait10>",
-                "/usr/bin/curl -O http://{{.HTTPIP}}:{{.HTTPPort}}/install-vmware.sh<enter><wait5>",
-                "/usr/bin/curl -O http://{{.HTTPIP}}:{{.HTTPPort}}/poweroff.timer<enter><wait5>",
-                "/usr/bin/bash ./install-vmware.sh<enter>"
+                  "<enter>",
+                  "<wait10><wait5>",
+                  "gdisk /dev/sda<enter>",
+                  "o<enter>y<enter>",
+                  "n<enter>1<enter><enter>+100M<enter><enter>",
+                  "c<enter>/boot<enter>",
+                  "n<enter>2<enter><enter>+3G<enter>8200<enter>",
+                  "n<enter>3<enter><enter>+18G<enter><enter>",
+                  "c<enter>3<enter>/<enter>",
+                  "n<enter>4<enter><enter><enter><enter>",
+                  "c<enter>4<enter>/home<enter>",
+                  "w<enter>y<enter><wait5>",
+                  "cd /tmp<enter>",
+                  "wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.sh && chmod +x /tmp/install.sh && /tmp/install.sh<enter>"
             ],
             "disk_size": 20480,
             "ssh_username": "root",
             "ssh_password": "vagrant",
             "shutdown_command": "systemctl start poweroff.timer"
         }
-    ],
+    ]
     "post-processors": [
         {
             "type": "vagrant",
