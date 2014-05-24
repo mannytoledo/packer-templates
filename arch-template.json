@@ -1,6 +1,6 @@
 {
     "variables": {
-        "iso_url": "https://mirrors.kernel.org/archlinux/iso/2014.05.01/archlinux-2014.05.01-dual.iso",
+        "iso_url": "file:///Users/mtoledo/Downloads/archlinux-2014.05.01-dual.iso",
         "iso_checksum": "007654f3f18da66f761611c1e645fca2fb194c5b",
         "iso_checksum_type": "sha1"
     },
@@ -27,15 +27,14 @@
                   "n<enter>4<enter><enter><enter><enter>",
                   "c<enter>4<enter>/home<enter>",
                   "w<enter>y<enter><wait5>",
-                  "cd /tmp<enter>",
-                  "wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.sh && chmod +x /tmp/install.sh && /tmp/install.sh<enter>"
+                  "cd /tmp<enter>"
             ],
             "disk_size": 20480,
             "ssh_username": "root",
             "ssh_password": "vagrant",
             "shutdown_command": "systemctl start poweroff.timer"
         }
-    ]
+    ],
     "post-processors": [
         {
             "type": "vagrant",
