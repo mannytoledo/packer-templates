@@ -12,7 +12,7 @@
             "iso_checksum_type": "{{user `iso_checksum_type`}}",
             "guest_os_type": "ArchLinux_64",
             "guest_additions_mode": "disable",
-            "http_directory": ".",
+            "http_directory": "http",
             "boot_wait": "5s",
             "boot_command": [
                   "<enter>",
@@ -27,12 +27,13 @@
                   "n<enter>4<enter><enter><enter><enter>",
                   "c<enter>4<enter>/home<enter>",
                   "w<enter>y<enter><wait5>",
-                  "cd /tmp<enter>"
+                  "cd /tmp<enter>",
+                  "wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.sh && chmod +x /tmp/install.sh && /tmp/install.sh<enter>"
             ],
             "disk_size": 20480,
             "ssh_username": "root",
             "ssh_password": "vagrant",
-            "shutdown_command": "systemctl start poweroff.timer"
+            "shutdown_command": "sudo halt -p"
         }
     ],
     "post-processors": [
